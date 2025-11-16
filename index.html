@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afrowear | Where Afrobeats Meets Streetwear</title>
+    <link rel="icon" type="image/png" href="Screenshot (65).png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <span>Afrowear</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero" onclick="showSection('hero')">Home</a></li>
+                <li><a href="#products" onclick="showSection('products')">Shop</a></li>
+                <li><a href="#about" onclick="showSection('about')">Our Heritage</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> Cart
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero active-section" id="hero">
+        <div class="hero-bg" style="background-image: url('Bold Streetwear Jacket Outfit Idea for Men _ Urban Style Inspiration.jpg');">
+        </div>
+        <div class="hero-content">
+            <h1>Wear Your Heritage.</h1>
+            <p>Discover premium apparel where African craftsmanship meets contemporary style. Bold fabrics, timeless design.
+            </p>
+            <a href="#products" class="cta-btn" onclick="showSection('products')">Explore The Collection</a>
+        </div>
+    </section>
+
+    <section class="products content-section" id="products">
+        <div class="section-title">
+            <h2>The Signature Collection</h2>
+            <p>Ethically sourced fabrics, expertly tailored.</p>
+            <p class="hover-tip" style="font-style: italic; color: #666; margin-top: 8px;">Click on a product to view details, or hover to like and add to cart.
+            </p>
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterProducts('all', event)">All</button>
+            <button class="filter-btn" onclick="filterProducts('men', event)">Men</button>
+            <button class="filter-btn" onclick="filterProducts('women', event)">Women</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="about content-section" id="about">
+        <div class="products" style="padding-top: 2rem;">
+            <div class="section-title">
+                <h2>Our Story: Crafting African Heritage</h2>
+                <p>A commitment to ethical fashion and artisan partnership.</p>
+            </div>
+
+            <div class="about-text" style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <p>Welcome to Afrowear. Our brand is dedicated to bridging traditional African fabrics with modern silhouettes. We believe in creating pieces that are more than just clothing; they are a celebration of culture, art, and identity.</p>
+                <br>
+                <p>We source our materials ethically, working directly with local artisans and communities across the continent. This ensures that every stitch supports fair labor practices and that the authenticity of African craftsmanship is preserved.
+                    When you wear Afrowear, you wear a story of quality, culture, and community upliftment.</p>
+                <br>
+                <p>Thank you for choosing to invest in slow fashion and supporting African artistry.</p>
+            </div>
+
+            <div class="about-image" style="max-width: 1000px; margin: 3rem auto 0; text-align: center;">
+                <img src="photoshoott.jpg" alt="Afrowear Heritage Photoshoot" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                <p style="font-style: italic; color: #666; margin-top: 10px;">Artisan fabrics meet modern style.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact content-section" id="contact">
+        <div class="products" style="padding-top: 2rem;">
+            <div class="section-title">
+                <h2>Speak to Our Team</h2>
+                <p>For inquiries about custom orders, sizing, or partnerships.</p>
+            </div>
+
+            <form style="max-width: 600px; margin: 0 auto;" id="contactForm" onsubmit="submitContactForm(event)">
+                <div class="form-group"><label for="contactName">Name</label><input type="text" id="contactName" name="contactName" required></div>
+                <div class="form-group"><label for="contactEmail">Email</label><input type="email" id="contactEmail" name="contactEmail" required></div>
+                <div class="form-group"><label for="contactSubject">Subject</label><input type="text" id="contactSubject" name="contactSubject"></div>
+                <div class="form-group"><label for="contactMessage">Message</label><textarea id="contactMessage" name="contactMessage" rows="5" required></textarea></div>
+                <button type="submit" class="cta-btn" id="contactSubmitBtn" style="width: 100%; background: #000; color: #E5FF00;">Send
+                    Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Product Quick View Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <button class="modal-close" onclick="closeProductModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-body">
+                <div class="modal-image-section">
+                    <img id="modalProductImage" src="" alt="Product Image">
+                </div>
+                <div class="modal-info-section">
+                    <p class="modal-category" id="modalCategory"></p>
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-description" id="modalDescription"></p>
+
+                    <div class="modal-features">
+                        <h4>Product Features:</h4>
+                        <ul id="modalFeatures"></ul>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="modal-like-btn" id="modalLikeBtn" onclick="toggleModalLike()">
+                            <i class="fa-regular fa-heart"></i> Add to Wishlist
+                        </button>
+                        <button class="modal-add-cart-btn" id="modalAddCartBtn" onclick="addToCartFromModal()">
+                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Your Quote Request</h3>
+                <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">
+                <div class="total-price" id="totalPrice"></div>
+                <button class="checkout-btn" onclick="showCheckout()">Request Quote</button>
+            </div>
+
+            <form class="checkout-form" id="checkoutForm">
+                <button type="button" class="back-to-cart" onclick="hideCheckout()">← Back to Cart</button>
+                <div class="form-section">
+                    <h4>Contact & Shipping Details</h4>
+                    <div class="form-group"><label for="fullName">Full Name</label><input type="text" id="fullName" name="fullName" required></div>
+                    <div class="form-group"><label for="emailAddress">Email Address</label><input type="email" id="emailAddress" name="emailAddress" required></div>
+                    <div class="form-group"><label for="phoneNumber">Phone Number</label><input type="tel" id="phoneNumber" name="phoneNumber"></div>
+                    <div class="form-group"><label for="shippingAddress">Shipping Address</label><input type="text" id="shippingAddress" name="shippingAddress" required></div>
+                    <div class="form-row">
+                        <div class="form-group"><label for="city">City</label><input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="Nigeria">Nigeria</option>
+                                <option value="Ghana">Ghana</option>
+                                <option value="USA">USA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="checkoutTotal" style="display: none;"></div>
+                <button type="submit" class="place-order-btn">Submit Quote Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h2>Afrowear</h2>
+                <p>Where Afrobeats Meets Streetwear</p>
+            </div>
+            <ul class="social-links">
+                <li><a href="https://www.instagram.com/afrowear.com.ng" target="_blank"><i
+                            class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.tiktok.com/@afrowear.com.ng" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </li>
+                <li><a href="https://www.threads.net/@afrowear.com.ng" target="_blank"><i
+                            class="fa-brands fa-threads"></i></a></li>
+                <li><a href="https://twitter.com/afrowear.com.ng" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                </li>
+                <li><a href="https://www.youtube.com/@afrowear.com.ng" target="_blank"><i
+                            class="fab fa-youtube"></i></a></li>
+                <li><a href="https://www.pinterest.com/afrowear.com.ng" target="_blank"><i
+                            class="fab fa-pinterest"></i></a></li>
+                <li><a href="https://wa.me/<your-whatsapp-number>" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </li>
+            </ul>
+            <div class="footer-bottom">
+                <p>© <span id="year"></span> Afrowear. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
